@@ -127,6 +127,7 @@ func logPhases(ctx context.Context) {
 	log.FromContext(ctx).Infof("6: create grpc and mount nse")
 	log.FromContext(ctx).Infof("7: register nse with nsm")
 	log.FromContext(ctx).Infof("a final success message with start time duration")
+
 }
 
 func createNSEndpoint(ctx context.Context, source x509svid.Source, config *Config, vppConn vpphelper.Connection, ipnet *net.IPNet, cancel context.CancelFunc) (endpoint.Endpoint, ifconfig.Server) {
