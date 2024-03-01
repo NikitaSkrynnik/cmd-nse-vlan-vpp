@@ -2,9 +2,11 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - 'release/**' 
+  workflow_run:
+    types:
+      - completed
+    workflows:
+      - "ci"
 jobs:
   create-release:
     uses: NikitaSkrynnik/.github/.github/workflows/release.yaml@cli-release
