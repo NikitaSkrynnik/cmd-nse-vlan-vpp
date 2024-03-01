@@ -125,7 +125,6 @@ func logPhases(ctx context.Context) {
 	log.FromContext(ctx).Infof("4: create vlan-vpp-responder ipam")
 	log.FromContext(ctx).Infof("5: create vlan-vpp-responder nse")
 	log.FromContext(ctx).Infof("6: create grpc and mount nse")
-	log.FromContext(ctx).Infof("7: register nse with nsm")
 	log.FromContext(ctx).Infof("a final success message with start time duration")
 
 }
