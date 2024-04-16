@@ -30,24 +30,9 @@ jobs:
   automerge:
     needs: [check-mergeability]
     if: ${{ needs.check-mergeability.result == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the code
-        uses: actions/checkout@v4
-      - name: Fetch main
-        run: |
-          git remote -v
-
-          git branch
-          git branch -r
-      - name: Check allowed files
-        run: |
-          find . -type f ! -name 'go.mod' ! -name 'go.sum' ! -name '*.yaml' ! -name '*.yml' ! -name '*.txt' ! -name '*.md' ! -name '*.conf' ! -name 'Dockerfile' -exec git diff --exit-code origin/main -- {} +
-      - name: Merge PR
-        run: |
-          gh pr merge ${{ github.event.workflow_run.head_branch }} --squash --delete-branch
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    uses: NikitaSkrynnik/.github/.github/workflows/automerge.yaml@main
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
 
   resolve_conflicts:
     needs: [check-mergeability]
