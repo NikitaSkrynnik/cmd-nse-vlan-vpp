@@ -19,6 +19,16 @@ jobs:
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
 
+  check:
+    needs: [check-mergeability]
+    if: ${{ needs.check-mergeability.pr_number != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        run: |
+          echo pr_number: ${{ needs.check-mergeability.pr_number }}
+          echo mergeable: ${{ needs.check-mergeability.mergeable }}
+
   automerge:
     needs: [check-mergeability]
     if: ${{ needs.check-mergeability.result == 'success' }}
