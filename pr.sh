@@ -1,3 +1,4 @@
+git checkout main
 git branch -D pr
 git push fork --delete pr
 git checkout -b pr
