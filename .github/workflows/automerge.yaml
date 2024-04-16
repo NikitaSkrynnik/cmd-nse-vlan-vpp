@@ -29,7 +29,6 @@ jobs:
       - name: Fetch main
         run: |
           git remote -v
-          git fetch --depth=1 origin main
 
           git branch
           git branch -r
