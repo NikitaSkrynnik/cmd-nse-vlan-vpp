@@ -36,7 +36,7 @@ jobs:
       - name: Merge PR
         uses: ridedott/merge-me-action@master
         with:
-          GITHUB_LOGIN: nsmbot
+          GITHUB_LOGIN: NikitaSkrynnik
           ENABLED_FOR_MANUAL_CHANGES: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAXIMUM_RETRIES: 25
