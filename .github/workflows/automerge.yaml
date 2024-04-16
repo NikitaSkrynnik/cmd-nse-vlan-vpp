@@ -19,14 +19,6 @@ jobs:
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
 
-  check:
-    needs: check-mergeability
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the code
-        run: |
-          echo pr_number: ${{ needs.check-mergeability.outputs.pr_number }}
-
   automerge:
     needs: [check-mergeability]
     if: ${{ needs.check-mergeability.result == 'success' }}
@@ -38,6 +30,9 @@ jobs:
         run: |
           git remote -v
           git fetch --depth=1 origin main
+
+          git branch
+          git branch -r
       - name: Check allowed files
         run: |
           find . -type f ! -name 'go.mod' ! -name 'go.sum' ! -name '*.yaml' ! -name '*.yml' ! -name '*.txt' ! -name '*.md' ! -name '*.conf' ! -name 'Dockerfile' -exec git diff --exit-code origin/main -- {} +
