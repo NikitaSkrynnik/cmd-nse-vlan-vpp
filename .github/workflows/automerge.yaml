@@ -28,7 +28,7 @@ jobs:
           echo pr_number: ${{ needs.check-mergeability.outputs.pr_number }}
 
   automerge:
-    needs: [check-mergeability]
+    needs: check-mergeability
     if: ${{ needs.check-mergeability.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
