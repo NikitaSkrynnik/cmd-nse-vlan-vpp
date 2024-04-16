@@ -13,6 +13,14 @@ jobs:
     steps:
       - uses: hmarr/debug-action@v2
 
+  check-pr:
+    name: CHeck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check
+        run: |
+          gh pr list --head ${{ github.event.workflow_run.head_branch }}
+
   check-mergeability:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     uses: networkservicemesh/.github/.github/workflows/check-mergeability.yaml@main
