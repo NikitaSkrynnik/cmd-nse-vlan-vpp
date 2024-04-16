@@ -1,7 +1,7 @@
 git branch -D pr
 git push fork --delete pr
 git checkout -b pr
-echo "change" > change
+echo "change" > change6758765
 git add .
 git commit -sm change
 git push -u fork pr
