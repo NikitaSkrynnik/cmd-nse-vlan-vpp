@@ -18,6 +18,14 @@ jobs:
     uses: NikitaSkrynnik/.github/.github/workflows/check-mergeability.yaml@main
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+  
+  check:
+    needs: [check-mergeability]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        run: |
+          echo pr_branch_ref: ${{ needs.check-mergeability.outputs.pr_branch_ref }}
 
   automerge:
     needs: [check-mergeability]
