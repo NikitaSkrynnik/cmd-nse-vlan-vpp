@@ -52,6 +52,6 @@ jobs:
     if: ${{ always() && needs.check-mergeability.result == 'failure' && needs.check-mergeability.outputs.pr_number != '' }}
     uses: networkservicemesh/.github/.github/workflows/resolve-conflicts.yaml@main
     with:
-      pr_branch: ${{ github.event.workflow_run.head_branch }}
+      pr_branch_ref: ${{ github.event.workflow_run.head_branch }}
     secrets:
       token: ${{ secrets.NSM_BOT_GITHUB_TOKEN }}
