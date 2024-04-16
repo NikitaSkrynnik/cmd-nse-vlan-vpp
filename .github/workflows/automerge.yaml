@@ -20,13 +20,12 @@ jobs:
       token: ${{ secrets.GITHUB_TOKEN }}
 
   check:
-    needs: [check-mergeability]
+    needs: check-mergeability
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code
         run: |
-          echo pr_number: ${{ needs.check-mergeability.pr_number }}
-          echo mergeable: ${{ needs.check-mergeability.mergeable }}
+          echo pr_number: ${{ needs.check-mergeability.outputs.pr_number }}
 
   automerge:
     needs: [check-mergeability]
@@ -50,9 +49,9 @@ jobs:
 
   resolve_conflicts:
     needs: [check-mergeability]
-    if: ${{ always() && needs.check-mergeability.result == 'failure' && needs.check-mergeability.outputs.pr_branch_ref != '' }}
+    if: ${{ always() && needs.check-mergeability.result == 'failure' && needs.check-mergeability.outputs.pr_number != '' }}
     uses: networkservicemesh/.github/.github/workflows/resolve-conflicts.yaml@main
     with:
-      pr_branch_ref: ${{ needs.check-mergeability.outputs.pr_branch_ref }}
+      pr_branch: ${{ github.event.workflow_run.head_branch }}
     secrets:
       token: ${{ secrets.NSM_BOT_GITHUB_TOKEN }}
