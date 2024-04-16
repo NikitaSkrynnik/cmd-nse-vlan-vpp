@@ -34,12 +34,10 @@ jobs:
         run: |
           find . -type f ! -name 'go.mod' ! -name 'go.sum' ! -name '*.yaml' ! -name '*.yml' ! -name '*.txt' ! -name '*.md' ! -name '*.conf' ! -name 'Dockerfile' -exec git diff --exit-code origin/main -- {} +
       - name: Merge PR
-        uses: ridedott/merge-me-action@master
-        with:
-          GITHUB_LOGIN: NikitaSkrynnik
-          ENABLED_FOR_MANUAL_CHANGES: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MAXIMUM_RETRIES: 25
+        run: |
+          gh pr merge ${{ github.event.workflow_run.head_branch }} --squash --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   resolve_conflicts:
     needs: [check-mergeability]
