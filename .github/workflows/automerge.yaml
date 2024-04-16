@@ -21,7 +21,6 @@ jobs:
 
   check:
     needs: [check-mergeability]
-    if: ${{ needs.check-mergeability.pr_number != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code
