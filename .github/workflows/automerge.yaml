@@ -18,7 +18,7 @@ jobs:
     uses: NikitaSkrynnik/.github/.github/workflows/check-mergeability.yaml@main
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
-  
+
   check:
     needs: [check-mergeability]
     runs-on: ubuntu-latest
