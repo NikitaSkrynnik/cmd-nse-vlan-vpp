@@ -20,6 +20,8 @@ jobs:
       - name: Check
         run: |
           gh pr list --head ${{ github.event.workflow_run.head_branch }}
+        env:
+          GH_TOKEN: ${{ secrets.GIHUB_TOKEN }}
 
   check-mergeability:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
