@@ -19,14 +19,6 @@ jobs:
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
 
-  check:
-    needs: [check-mergeability]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the code
-        run: |
-          echo pr_branch_ref: ${{ needs.check-mergeability.outputs.pr_branch_ref }}
-
   automerge:
     needs: [check-mergeability]
     if: ${{ needs.check-mergeability.result == 'success' }}
@@ -36,7 +28,7 @@ jobs:
 
   resolve_conflicts:
     needs: [check-mergeability]
-    if: ${{ always() && needs.check-mergeability.result == 'failure' && needs.check-mergeability.outputs.pr_number != '' }}
+    if: ${{ always() && needs.check-mergeability.result == 'failure' && needs.check-mergeability.outputs.pr_branch_ref != '' }}
     uses: networkservicemesh/.github/.github/workflows/resolve-conflicts.yaml@main
     with:
       pr_branch_ref: ${{ github.event.workflow_run.head_branch }}
